@@ -1,17 +1,12 @@
 package org.broox.space;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
 
+import org.broox.space.io.TickerMapService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -21,7 +16,7 @@ import redis.clients.jedis.params.ScanParams;
 import redis.clients.jedis.resps.ScanResult;
 
 public class TestRunner {
-	public static void main(String[] args) {
+	public static void main4(String[] args) {
 		
 		List<String> tic = tickers(json());
 		List<String> cnt = getValuesInBatches(tic, 100);
@@ -39,6 +34,25 @@ public class TestRunner {
 		}
 		
 	}
+
+    public static void mainr(String[] args) {
+        List<String> companies = Arrays.asList("the NVIDIA Corporation", "Microsoft Corp", "Inc de Tesla", " the Apple company");
+        for (String company : companies) {
+            String[] words = company.trim().split("\\s+");
+            int maxIndex = 0;
+            int maxLength = 0;
+            for (int i = 0; i < words.length; i++) {
+                if (words[i].length() > maxLength) {
+                    maxLength = words[i].length();
+                    maxIndex = i;
+                }
+            }
+            System.out.println(company + " → " + maxIndex);
+            System.out.println("array: " + Arrays.toString(words));
+        }
+    }
+
+
 	
 	public static List<String> getValuesInBatches(List<String> keys, int batchSize) {
 		
